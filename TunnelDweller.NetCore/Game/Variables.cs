@@ -22,6 +22,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<int>(Offsets.TARGET_FPS, value);
             }
         }
+
         public static int LevelId
         {
             get
@@ -29,6 +30,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<int>(Offsets.LEVEL_ID);
             }
         }
+
         public static IntPtr LevelInstance
         {
             get
@@ -36,6 +38,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<IntPtr>(Offsets.LEVEL_INSTANCE);
             }
         }
+
         public static bool IsLoading
         {
             get
@@ -43,6 +46,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<int>(Offsets.IS_LOADING) != 0;
             }
         }
+
         public static float PLAYER_X
         {
             get
@@ -54,6 +58,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.PLAYER_X, value);
             }
         }
+
         public static float PLAYER_Y
         {
             get
@@ -65,6 +70,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.PLAYER_Y, value);
             }
         }
+
         public static float PLAYER_Z
         {
             get
@@ -76,6 +82,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.PLAYER_Z, value);
             }
         }
+
         public static float PLAYER_RX
         {
             get
@@ -87,6 +94,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.PLAYER_RX, value);
             }
         }
+
         public static float PLAYER_RY
         {
             get
@@ -98,6 +106,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.PLAYER_RY, value);
             }
         }
+
         public static float PLAYER_RZ
         {
             get
@@ -109,6 +118,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.PLAYER_RZ, value);
             }
         }
+
         public static vec3_t Position
         {
             get
@@ -120,6 +130,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<vec3_t>(Offsets.PLAYER_X, value);
             }
         }
+
         public static vec3_t Angles
         {
             get
@@ -131,6 +142,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<vec3_t>(Offsets.PLAYER_RX, value);
             }
         }
+
         public static float ViewDistance
         {
             get
@@ -142,6 +154,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.VIEWDISTANCE, value);
             }
         }
+
         public static float FieldOfView
         {
             get
@@ -153,6 +166,7 @@ namespace TunnelDweller.NetCore.Game
                 MemoryManager.Write<float>(Offsets.FIELDOFVIEW, value);
             }
         }
+
         public static float Width
         {
             get
@@ -160,6 +174,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<float>(Offsets.RESOLUTION_WIDTH);
             }
         }
+
         public static float Height
         {
             get
@@ -167,6 +182,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<float>(Offsets.RESOLUTION_HEIGHT);
             }
         }
+
         public static float AspectRatio
         {
             get
@@ -174,6 +190,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<float>(Offsets.RESULTION_ASPECTRATIO);
             }
         }
+
         public static int WindowTime
         {
             get
@@ -181,6 +198,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<int>(Offsets.WINDOW_TIME);
             }
         }
+
         public static int WindowTimeFocused
         {
             get
@@ -188,6 +206,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<int>(Offsets.WINDOW_TIME_FOCUS);
             }
         }
+
         public static int GameTime
         {
             get
@@ -195,6 +214,7 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<int>(Offsets.GAME_TIME);
             }
         }
+
         public static string GetLevelName(int levelId)
         {
             switch (levelId)
