@@ -349,6 +349,8 @@
     <None Include="App.config" />
     <EmbeddedResource Include="Resources\Raleway-Regular.ttf" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Newtonsoft\LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

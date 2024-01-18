@@ -75,7 +75,8 @@ void TunnelDweller::Rendering::InitializeDirectInput()
 		return;
 
 	IDirectInput8* pDirectInput = nullptr;
-	if (DirectInput8Create((HINSTANCE)TunnelDweller::Globals::sModule, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&pDirectInput, NULL) == DI_OK)
+	auto dires = 0;
+	if ((dires = DirectInput8Create(GetModuleHandleA(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&pDirectInput, NULL)) == DI_OK)
 	{
 		uintptr_t kbdirectinput_getdata;
 		uintptr_t msdirectinput_getdata;
@@ -128,7 +129,7 @@ void TunnelDweller::Rendering::InitializeDirectInput()
 		DirectInputInitialized = true;
 	}
 	else
-		Log("Creating IDirectInput8 failed.");
+		Log("Creating IDirectInput8 failed. %li", dires);
 }
 
 void TunnelDweller::Rendering::OnPreDraw()
