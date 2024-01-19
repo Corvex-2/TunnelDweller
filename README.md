@@ -5,7 +5,7 @@ preview:
 
 ### Widescreen Fix
 
-![video](https://streamable.com/wq15ze)
+https://streamable.com/wq15ze
 
 ### Overlay
 
