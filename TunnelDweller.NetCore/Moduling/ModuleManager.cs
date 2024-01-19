@@ -14,6 +14,7 @@ using TunnelDweller.NetCore.Windowing;
 using TunnelDweller.NetCore.Game;
 using System.Reflection;
 using TunnelDweller.NetCore.Threading;
+using System.Net;
 
 namespace TunnelDweller.NetCore.Moduling
 {
@@ -25,6 +26,9 @@ namespace TunnelDweller.NetCore.Moduling
 
         internal static TabItem ModuleManagerTab;
         internal static List<ModuleView> ModuleViews;
+
+        internal const string NETWORK_MODULES = "http://download.technicaldifficulties.de/files/metro/modules/";
+        internal static bool networked;
 
         internal static string ModulePath
         {
@@ -48,16 +52,43 @@ namespace TunnelDweller.NetCore.Moduling
             InputManager.InputChanged += InputManager_InputChanged;
         }
 
+        private static void LoadNetworked()
+        {
+            if (networked)
+                return;
+
+            var client = new WebClient();
+            var str = client.DownloadString(NETWORK_MODULES);
+            foreach(var mod in str.Split(new[] { ';' }))
+            {
+                var data = client.DownloadData(NETWORK_MODULES +  mod);
+                var dot = mod.LastIndexOf('.');
+                var name = mod;
+                if(dot != -1)
+                    name = mod.Substring(0, dot);
+
+                var module = new ModuleBase(NETWORK_MODULES + mod, name, data);
+                var view = new ModuleView(module);
+
+
+                ModuleViews.Add(view);
+                ModuleManagerTab.Controls.Add(view);
+            }
+            networked = true;
+        }
+
         private static void Update_OnUpdate(object sender, EventArgs e)
         {
             if (ModuleViews == null || ModuleManagerTab == null)
                 return;
 
+            LoadNetworked();
+
             var files = Directory.GetFiles(ModulePath);
 
             for (int i = 0; i < files.Length; i++)
             {
-                if (ModuleViews.Any(x => x.Module.FilePath == files[i]))
+                if (ModuleViews.Any(x => x.Module.FileName == files[i]))
                     continue;
 
 
@@ -73,9 +104,6 @@ namespace TunnelDweller.NetCore.Moduling
                 var module = new ModuleBase(files[i], Path.GetFileNameWithoutExtension(files[i]), File.ReadAllBytes(files[i]));
                 var view = new ModuleView(module);
 
-                Console.WriteLine(view.Module.FileName);
-                Console.WriteLine(view.Module.FilePath);
-                Console.WriteLine(view.Module.FileData.Length);
                 ModuleViews.Add(view);
                 ModuleManagerTab.Controls.Add(view);
             }

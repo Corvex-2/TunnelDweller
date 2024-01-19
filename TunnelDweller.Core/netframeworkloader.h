@@ -18,6 +18,7 @@
 #include "minhook/include/MinHook.h"
 
 #pragma comment(lib, "mscoree.lib")
+
 #import "mscorlib.tlb" auto_rename raw_interfaces_only high_property_prefixes("_get","_put","_putref") rename("ReportEvent", "InteropServices_ReportEvent")
 
 using namespace mscorlib;
@@ -28,6 +29,8 @@ namespace TunnelDweller::FrameworkLoader
 	static IUnknownPtr spAppDomainThunk;
 	static _AssemblyPtr spAssembly;
 	static ICorRuntimeHost* spCorRuntimeHost;
+	static void* spCoreAssemblyPtr;
+	static int sCoreAssemblyLength;
 
 	_AppDomainPtr RuntimeHost(PCWSTR pRuntimeVersion);
 	_AssemblyPtr LoadAssembly(SAFEARRAY* pAssemblyData);

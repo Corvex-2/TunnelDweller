@@ -1,6 +1,5 @@
 #include "NetFrameworkLoader.h"
 
-
 _AppDomainPtr TunnelDweller::FrameworkLoader::RuntimeHost(PCWSTR pRuntimeVersion)
 {
     if (spAppDomain)
@@ -65,40 +64,68 @@ SAFEARRAY* TunnelDweller::FrameworkLoader::ConstructModule(unsigned char* pByteD
 
 SAFEARRAY* TunnelDweller::FrameworkLoader::GetAssembly()
 {
-#if _DEBUG
+    if(sCoreAssemblyLength != 0 && spCoreAssemblyPtr != nullptr)
+        return ConstructModule((unsigned char*)spCoreAssemblyPtr, sCoreAssemblyLength);
 
-    
-    const std::string inputFileName = "D:\\Development\\TunnelDweller\\TunnelDweller\\TunnelDweller.NetCore\\bin\\x64\\Debug\\TunnelDweller.NetCore.exe";
-    std::ifstream fileStream(inputFileName, std::ios::binary);
-    if (!fileStream.is_open()) {
+    LPCSTR lpszPipename = "\\\\.\\pipe\\TUNNEL.DWELLER";
+    HANDLE hPipe;
+    BOOL flg;
+    DWORD dwWrite = 0, dwRead = 0;
+    int length = 0;
+    char szServerUpdate[256];
+
+    RtlZeroMemory(szServerUpdate, 256);
+
+    hPipe = CreateNamedPipe(lpszPipename, PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT, 1, 256, 256, 60 * 1000, NULL);
+
+    if (hPipe == INVALID_HANDLE_VALUE)
         return NULL;
-    }
-    fileStream.seekg(0, std::ios::end);
-    std::streamsize fileSize = fileStream.tellg();
-    fileStream.seekg(0, std::ios::beg);
-    std::vector<char> fileContent(fileSize);
-    if (fileStream.read(fileContent.data(), fileSize)) {
-    }
-    else {
-        std::cerr << "Error reading file: " << inputFileName << std::endl;
-    }
-    fileStream.close();
-    auto ptr = fileContent.data();
-    auto len = fileContent.size();
-    return ConstructModule(reinterpret_cast<unsigned char*>(ptr), len);
 
-#endif
+    ConnectNamedPipe(hPipe, NULL);
 
-	return nullptr;
+    strcpy_s(szServerUpdate, "TUNNEL.DWELLER\0\0\0\0");
+
+    flg = WriteFile(hPipe, szServerUpdate, strlen(szServerUpdate), &dwWrite, NULL);
+
+
+    while(dwRead == 0)
+        flg = ReadFile(hPipe, &length, 4, &dwRead, NULL);
+    dwRead = 0;
+    if (length > 0)
+    {
+        auto lpData = VirtualAlloc(NULL, length, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+
+        while(dwRead == 0)
+            flg = ReadFile(hPipe, lpData, length, &dwRead, NULL);
+
+        if (length == dwRead)
+        {
+            Log("Length match!");
+            DisconnectNamedPipe(hPipe);
+            
+            spCoreAssemblyPtr = lpData;
+            sCoreAssemblyLength = length;
+
+            return ConstructModule((unsigned char*)lpData, length);
+        }
+        else
+        {
+            Log("Length mismatch!");
+            DisconnectNamedPipe(hPipe);
+            return nullptr;
+        }
+    }
+    else
+        Log("Length == 0");
+
+    DisconnectNamedPipe(hPipe);
+    return nullptr;
 }
 
 void TunnelDweller::FrameworkLoader::ReloadDomInternal(LPCWSTR lpName)
 {
     if (!spAppDomain)
         return;
-
-    //ImGui::GetIO().Fonts->Clear();
-    //ImGui::GetIO().Fonts->AddFontDefault();
 
     HRESULT result = NULL;
     IUnknownPtr pAppDomainThunk;
