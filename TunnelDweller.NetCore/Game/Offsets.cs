@@ -98,10 +98,24 @@ namespace TunnelDweller.NetCore.Game
         {
             get
             {
-                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD359D0;
+                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD0379C;
             }
         }
         public static IntPtr RESOLUTION_HEIGHT
+        {
+            get
+            {
+                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD037A0;
+            }
+        }
+        public static IntPtr RESOLUTION_WIDTHFLOAT
+        {
+            get
+            {
+                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD359D0;
+            }
+        }
+        public static IntPtr RESOLUTION_HEIGHTFLOAT
         {
             get
             {
@@ -112,7 +126,7 @@ namespace TunnelDweller.NetCore.Game
         {
             get
             {
-                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD22EBC;
+                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD044CC; //0xD22EBC;
             }
         }
         public static IntPtr WINDOW_TIME

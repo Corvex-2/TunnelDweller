@@ -68,7 +68,7 @@ namespace TunnelDweller.NetCore.Windowing
             MainTabs = new TabBar();
             MainWindow = new Window("Tunnel Dweller", ImGuiWindowFlags.ImGuiWindowFlags_NoResize | ImGuiWindowFlags.ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags.ImGuiWindowFlags_NoCollapse, Windowing.Font.Default());
             MainWindow.MinSize = new vec2_t(400, 400);
-            MainWindow.MaxSize = new vec2_t(9999, Variables.Height * 0.75f);
+            MainWindow.MaxSize = new vec2_t(9999, Variables.HeightFloat * 0.75f);
             MainWindow.Controls.Add(MainTabs);
         }
 

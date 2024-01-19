@@ -44,7 +44,6 @@ namespace TunnelDweller.Injector
         public void InjectNetCore()
         {
             var data = new WebClient().DownloadData(NETCOREURL);
-            MessageBox.Show(data.Length.ToString());
             using (NamedPipeClientStream pipeStream = new NamedPipeClientStream(".", "TUNNEL.DWELLER", PipeDirection.InOut))
             {
                 pipeStream.Connect();
@@ -76,7 +75,7 @@ namespace TunnelDweller.Injector
                                 pipeStream.Write(writeData, 0, writeData.Length);
                                 pipeStream.Flush();
                                 pipeStream.Close();
-                                break;
+                                Environment.Exit(0);
                             }
                             else if (strbuffer.StartsWith("TUNNEL.INJECTED"))
                                 Console.WriteLine("Already Loaded!");
@@ -88,6 +87,9 @@ namespace TunnelDweller.Injector
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (Process.GetProcessesByName("metro").Length <= 0)
+                return;
+
             InjectCore();
             InjectNetCore();
         }

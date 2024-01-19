@@ -17,14 +17,14 @@ namespace TunnelDweller.Memory
             PrepareZwReadVirtualMemory();
         }
 
-        internal static Process Process
+        public static Process Process
         {
             get
             {
                 return Process.GetCurrentProcess();
             }
         }
-        internal static IntPtr Handle
+        public static IntPtr Handle
         {
             get
             {
@@ -37,8 +37,8 @@ namespace TunnelDweller.Memory
         #region SPECIAL: ntdll.NtReadVirtualMemory
         [SuppressUnmanagedCodeSecurity]
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate uint NtReadVirtualMemory32(IntPtr hProcess, IntPtr lpBaseAddress, ref byte[] buffer, uint lpNumberOfBytesToRead, out uint lpNumberOfBytesRead);
-        public static NtReadVirtualMemory32 NtReadVirtualMemory = null;
+        internal delegate uint NtReadVirtualMemory32(IntPtr hProcess, IntPtr lpBaseAddress, ref byte[] buffer, uint lpNumberOfBytesToRead, out uint lpNumberOfBytesRead);
+        internal static NtReadVirtualMemory32 NtReadVirtualMemory = null;
         
         private static IntPtr NtReadVirtualMemory_Pointer;
         private static byte[] NtReadVirtualMemory_Shellcode =
@@ -50,7 +50,7 @@ namespace TunnelDweller.Memory
             0x90,                           //nop
         };
 
-        public static void PrepareZwReadVirtualMemory()
+        internal static void PrepareZwReadVirtualMemory()
         {
             if (NtReadVirtualMemory != null)
                 return;
@@ -65,7 +65,7 @@ namespace TunnelDweller.Memory
             NtReadVirtualMemory = Marshal.GetDelegateForFunctionPointer<NtReadVirtualMemory32>(NtReadVirtualMemory_Pointer);
         }
 
-        public static byte[] ReadStealth(IntPtr Pointer, int Size)
+        internal static byte[] ReadStealth(IntPtr Pointer, int Size)
         {
             byte[] _buffer = new byte[Size];
             Natives.ReadProcessMemory(Process.Handle, Pointer, _buffer, (uint)Size, out var _);
@@ -122,11 +122,11 @@ namespace TunnelDweller.Memory
                 return buffer;
             }
         }
-        internal static string ReadString(IntPtr Pointer)
+        public static string ReadString(IntPtr Pointer)
         {
             return Marshal.PtrToStringUni(Pointer);
         }
-        internal static unsafe T Read<T>(IntPtr Pointer) where T : struct
+        public static unsafe T Read<T>(IntPtr Pointer) where T : struct
         {
             if(Pointer.ToInt64() < 0xFFFF) //Hack to pervent crashes with invalid pointers. reading values below 0xFFFF shouldnt happen, if we ever do come across that, we just return default duh.
                 return default(T);
@@ -164,7 +164,7 @@ namespace TunnelDweller.Memory
 
             return true;
         }
-        public static bool UWrite<T>(IntPtr Pointer, T Value) where T : struct
+        internal static bool UWrite<T>(IntPtr Pointer, T Value) where T : struct
         {
             int _size = Marshal.SizeOf<T>();
             byte[] _buffer = new byte[_size];
@@ -194,7 +194,7 @@ namespace TunnelDweller.Memory
         #endregion
 
         #region Function Retrieval
-        public static IntPtr GetFunctionPointer(string Function, string Module)
+        internal static IntPtr GetFunctionPointer(string Function, string Module)
         {
             IntPtr mHandle = Natives.GetModuleHandle(Module);
 
@@ -204,7 +204,7 @@ namespace TunnelDweller.Memory
             IntPtr fPointer = Natives.GetProcAddress(mHandle, Function);
             return fPointer;
         }
-        public static IntPtr GetFunctionPointer(string Function)
+        internal static IntPtr GetFunctionPointer(string Function)
         {
             IntPtr fPointer = IntPtr.Zero;
             foreach (ProcessModule nModule in Process.Modules)
@@ -214,7 +214,7 @@ namespace TunnelDweller.Memory
             }
             return fPointer;
         }
-        public static MethodInfo GetMethodByName(string Method)
+        internal static MethodInfo GetMethodByName(string Method)
         {
             BindingFlags mFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic;
             var x = AppDomain.CurrentDomain.GetAssemblies();
@@ -233,7 +233,7 @@ namespace TunnelDweller.Memory
             }
             return default;
         }
-        public static List<MethodInfo> GetAllMethodsByName(string Method)
+        internal static List<MethodInfo> GetAllMethodsByName(string Method)
         {
             var ret = new List<MethodInfo>();
             BindingFlags mFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic;
@@ -253,7 +253,7 @@ namespace TunnelDweller.Memory
             }
             return ret;
         }
-        public static List<MethodInfo> GetAllMethodsByName(string Method, int assemblyIndex)
+        internal static List<MethodInfo> GetAllMethodsByName(string Method, int assemblyIndex)
         {
             var ret = new List<MethodInfo>();
             BindingFlags mFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic;
@@ -273,7 +273,7 @@ namespace TunnelDweller.Memory
             //}
             return ret;
         }
-        public static MethodInfo GetMethodByPointer(IntPtr Pointer, int AssemblyIndex)
+        internal static MethodInfo GetMethodByPointer(IntPtr Pointer, int AssemblyIndex)
         {
             var plookup = PreparedMethods.Where(x => x.Item2 == Pointer).FirstOrDefault().Item1;
             if (plookup != null && plookup != default(MethodInfo))
@@ -304,7 +304,7 @@ namespace TunnelDweller.Memory
             }
             return default;
         }
-        public static MethodInfo GetMethodByPointer(IntPtr Pointer)
+        internal static MethodInfo GetMethodByPointer(IntPtr Pointer)
         {
             var plookup = PreparedMethods.Where(io => io.Item2 == Pointer).FirstOrDefault().Item1;
             if (plookup != null && plookup != default(MethodInfo))
@@ -342,15 +342,15 @@ namespace TunnelDweller.Memory
             }
             return default;
         }
-        public static MethodInfo GetMethodByToken(int Token, int AssemblyIndex)
+        internal static MethodInfo GetMethodByToken(int Token, int AssemblyIndex)
         {
             return (MethodInfo)AppDomain.CurrentDomain.GetAssemblies()[AssemblyIndex].ManifestModule.ResolveMethod(Token);
         }
-        public static MethodInfo GetMethodByToken(int Token, Assembly Target)
+        internal static MethodInfo GetMethodByToken(int Token, Assembly Target)
         {
             return (MethodInfo)Target.ManifestModule.ResolveMethod(Token);
         }
-        public static unsafe TDest ReinterpretCast<TDest>(object source)
+        internal static unsafe TDest ReinterpretCast<TDest>(object source)
         {
             var sourceRef = __makeref(source);
             var dest = default(TDest);
@@ -360,7 +360,7 @@ namespace TunnelDweller.Memory
         }
         private static List<(MethodInfo, IntPtr)> PreparedMethods = new List<(MethodInfo, IntPtr)>();
         private static List<(ConstructorInfo, IntPtr)> PreparedConstructors = new List<(ConstructorInfo, IntPtr)>();
-        public static void PrepareMethods(int AssemblyIndex)
+        internal static void PrepareMethods(int AssemblyIndex)
         {
             var Assembly = AppDomain.CurrentDomain.GetAssemblies()[AssemblyIndex];
             foreach (Type T in Assembly.GetTypes())
@@ -382,7 +382,7 @@ namespace TunnelDweller.Memory
                 }
             }
         }
-        public static void PrepareConstructors(int AssemblyIndex)
+        internal static void PrepareConstructors(int AssemblyIndex)
         {
             var Assembly = AppDomain.CurrentDomain.GetAssemblies()[AssemblyIndex];
             foreach (Type T in Assembly.GetTypes())
@@ -404,7 +404,13 @@ namespace TunnelDweller.Memory
                 }
             }
         }
-        public static IntPtr PrepareMethod(MethodInfo Method)
+
+        public static IntPtr GetBase()
+        {
+            return Process.GetCurrentProcess().MainModule.BaseAddress;
+        }
+
+        internal static IntPtr PrepareMethod(MethodInfo Method)
         {
             RuntimeHelpers.PrepareMethod(Method.MethodHandle);
             return Method.MethodHandle.GetFunctionPointer();

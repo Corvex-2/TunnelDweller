@@ -28,6 +28,24 @@ namespace TunnelDweller.NetCore
             InputManager.Initialize();
             Window.Initialize();
             ModuleManager.Initialize(); // requires polishing, but works.
+
+            Popup info = new Popup("Tunnel Dweller###notice");
+            info.Controls.Add(new Label($"Welcome to Tunnel Dweller - a Speedrunning Toolkit and much more for the metro games.\r\n\r\nCurrently Supported are the following games: \r\n\r\n"));
+            info.Controls.Add(new Label($"Metro 2033 Redux") { Color = new col32_t(.3f, .3f, .9f, 1f) });
+            info.Controls.Add(new Label($"Metro Last Light Reudx") { Color = new col32_t(.3f, .3f, .9f, 1f) });
+            info.Controls.Add(new Label($"You can open the menu by pressing "));
+            info.Controls.Add(new Label("DEL or DELETE") { Color = new col32_t(0f, 1f, 0.33f), Sameline = true });
+            info.Controls.Add(new Label(" on your Keyboard.") { Sameline = true });
+            info.Controls.Add(new Seperator());
+            info.Controls.Add(new Label("Please keep in mind that Tunnel Dweller is still in BETA. \r\nCrashes and Performance issues are to be expected. If you encounter any bugs, please report them to Corvex via GitHub or Discord.") { Color = new col32_t(1f, 0.8f, 0.8f) });
+            info.Controls.Add(new Label("Discord: corvex5"));
+            info.Controls.Add(new Label("GitHub: /Corvex-2"));
+            info.Controls.Add(new Seperator());
+            info.Controls.Add(new Button("Open on GitHub", new Action(() => { Process.Start("https://github.com/Corvex-2/TunnelDweller"); })));
+            info.Controls.Add(new Button("Continue", new Action(() => { info.Active = false; ImGui.CloseCurrentPopup(); })) { Sameline = true });
+            info.Active = true;
+
+
             return 1;
         }
     }

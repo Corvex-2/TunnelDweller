@@ -67,9 +67,9 @@ namespace TunnelDweller.NetCore.Windowing
                             Controls[i].Paint();
                     }
 
-                    //var size = ImGui.GetWindowSize();
+                    var size = ImGui.GetWindowSize();
 
-                    //ImGui.SetWindowPos(Variables.Width / 2 - size.x / 2, Variables.Height / 2 - size.y / 2);
+                    ImGui.SetWindowPos(Variables.Width / 2 - size.x / 2, Variables.Height / 2 - size.y / 2);
 
                     ImGui.EndPopupModal();
                 }

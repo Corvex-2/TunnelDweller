@@ -136,8 +136,8 @@ namespace TunnelDweller.Overlay
 
                 x1 = Variables.Width / 2 - slCorsshairSize.Value / 2;
                 x2 = Variables.Width / 2 + slCorsshairSize.Value / 2;
-                y1 = Variables.Height / 2 - slCorsshairSize.Value / 2;
-                y2 = Variables.Height / 2 + slCorsshairSize.Value / 2;
+                y1 = Variables.Height/ 2 - slCorsshairSize.Value / 2;
+                y2 = Variables.Height/ 2 + slCorsshairSize.Value / 2;
 
                 ImGui.ImDrawLine(x1, Variables.Height / 2, x2, Variables.Height / 2, slCrosshairThickness.Value, cpCrosshairColor.Color.RByte, cpCrosshairColor.Color.GByte, cpCrosshairColor.Color.BByte, cpCrosshairColor.Color.AByte);
                 ImGui.ImDrawLine(Variables.Width / 2, y1, Variables.Width / 2, y2, slCrosshairThickness.Value, cpCrosshairColor.Color.RByte, cpCrosshairColor.Color.GByte, cpCrosshairColor.Color.BByte, cpCrosshairColor.Color.AByte);

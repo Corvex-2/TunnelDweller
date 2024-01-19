@@ -67,7 +67,7 @@ namespace TunnelDweller.NetCore.Moduling
                 if(dot != -1)
                     name = mod.Substring(0, dot);
 
-                var module = new ModuleBase(NETWORK_MODULES + mod, name, data);
+                var module = new ModuleBase(NETWORK_MODULES + mod, name, data, true);
                 var view = new ModuleView(module);
 
 
@@ -88,7 +88,7 @@ namespace TunnelDweller.NetCore.Moduling
 
             for (int i = 0; i < files.Length; i++)
             {
-                if (ModuleViews.Any(x => x.Module.FileName == files[i]))
+                if (ModuleViews.Any(x => x.Module.FileName == Path.GetFileNameWithoutExtension(files[i])))
                     continue;
 
 

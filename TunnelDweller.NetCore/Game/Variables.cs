@@ -167,19 +167,33 @@ namespace TunnelDweller.NetCore.Game
             }
         }
 
-        public static float Width
+        public static int Width
         {
             get
             {
-                return MemoryManager.Read<float>(Offsets.RESOLUTION_WIDTH);
+                return MemoryManager.Read<int>(Offsets.RESOLUTION_WIDTH);
+            }
+        }
+        public static int Height
+        {
+            get
+            {
+                return MemoryManager.Read<int>(Offsets.RESOLUTION_HEIGHT);
+            }
+        }
+        public static float WidthFloat
+        {
+            get
+            {
+                return MemoryManager.Read<float>(Offsets.RESOLUTION_WIDTHFLOAT);
             }
         }
 
-        public static float Height
+        public static float HeightFloat
         {
             get
             {
-                return MemoryManager.Read<float>(Offsets.RESOLUTION_HEIGHT);
+                return MemoryManager.Read<float>(Offsets.RESOLUTION_HEIGHTFLOAT);
             }
         }
 
@@ -188,6 +202,10 @@ namespace TunnelDweller.NetCore.Game
             get
             {
                 return MemoryManager.Read<float>(Offsets.RESULTION_ASPECTRATIO);
+            }
+            set
+            {
+                MemoryManager.Write<float>(Offsets.RESULTION_ASPECTRATIO, value);
             }
         }
 

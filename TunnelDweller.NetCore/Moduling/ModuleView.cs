@@ -19,6 +19,9 @@ namespace TunnelDweller.NetCore.Moduling
             btnLoadModule = new Button($"Load###{module.FileName}", Load);
             btnLoadModule.Sameline = true;
 
+            if (module.Networked)
+                lblNameModule.Color = new DearImgui.col32_t(0, 255, 136);
+
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 

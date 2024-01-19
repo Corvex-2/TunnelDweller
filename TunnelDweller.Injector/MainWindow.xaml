@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TunnelDweller.Injector"
         mc:Ignorable="d"
-        Title="TunnelDweller - Metro Speedrunning Toolkit" Height="300" Width="400">
+        Title="TunnelDweller - Metro Speedrunning Toolkit" Height="300" ResizeMode="NoResize" Width="400">
     <Grid>
-        <GroupBox HorizontalAlignment="Center" Height="107" Header="Game" Margin="0,10,0,0" VerticalAlignment="Top" Width="380"/>
-        <Button Content="Inject" HorizontalAlignment="Center" Margin="0,117,0,0" VerticalAlignment="Top" Width="380" Click="Button_Click"/>
-
+        <GroupBox HorizontalAlignment="Center" Height="107" Header="Game" VerticalAlignment="Top" Width="380">
+            <Label x:Name="state"  Content="" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" FontWeight="Bold" FontFamily="Cascadia Mono" VerticalAlignment="Center" Margin="10,0,0,0" Width="360"/>
+        </GroupBox>
+        <Button Content="Inject" HorizontalAlignment="Center" VerticalAlignment="Top" Width="380" Click="Button_Click" Margin="0,112,0,0"/>
     </Grid>
 </Window>
