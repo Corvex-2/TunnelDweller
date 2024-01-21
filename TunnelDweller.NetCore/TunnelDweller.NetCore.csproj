@@ -77,6 +77,9 @@
     <Compile Include="DearImgui\ImGuiTabItemFlags.cs" />
     <Compile Include="DearImgui\ImGuiTextInputFlags.cs" />
     <Compile Include="DearImgui\ImGuiWindowFlags.cs" />
+    <Compile Include="DearImgui\ImPlotAxisFlags.cs" />
+    <Compile Include="DearImgui\ImPlotCol.cs" />
+    <Compile Include="DearImgui\ImPlotFlags.cs" />
     <Compile Include="DearImgui\m16_t.cs" />
     <Compile Include="DearImgui\NetFontInfo_t.cs" />
     <Compile Include="DearImgui\vec2_t.cs" />
@@ -338,8 +341,10 @@
     <Compile Include="Windowing\Control.cs" />
     <Compile Include="Windowing\Font.cs" />
     <Compile Include="Windowing\Label.cs" />
+    <Compile Include="Windowing\Plot.cs" />
     <Compile Include="Windowing\Popup.cs" />
     <Compile Include="Windowing\Seperator.cs" />
+    <Compile Include="Windowing\ShadedPlot.cs" />
     <Compile Include="Windowing\Slider.cs" />
     <Compile Include="Windowing\TabBar.cs" />
     <Compile Include="Windowing\TabItem.cs" />

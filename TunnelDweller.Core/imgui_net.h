@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "imgui.h"
+#include "implot.h"
 #include <map>
 #include <string>
 
@@ -96,4 +97,14 @@ namespace TunnelDweller::DotNetWrapper::DearImgui
 	void __stdcall ImDrawLine(float x1, float y1, float x2, float y2, float thickness, int r, int g, int b, int a);
 
 	bool __stdcall ColorPicker(const char* name, float* flt);
+
+	bool __stdcall BeginPlot(const char* name, int flags);
+	void __stdcall EndPlot();
+	void __stdcall PlotLine(const char* name, float* xData, float* yData, int xyLength);
+	void __stdcall PlotBars(const char* name, float* Data, int Length);
+	void __stdcall PlotShaded(const char* name, float* data, int Length);
+	void __stdcall SetupAxes(const char* x1name, const char* x2name, int flags);
+	void __stdcall SetupAxesLimits(float x1min, float x1max, float y1min, float y1max);
+	void __stdcall PushPlotStyleColor(int implotcol, int r, int g, int b, int a);
+	void __stdcall PopPlotStyleColor();
 }

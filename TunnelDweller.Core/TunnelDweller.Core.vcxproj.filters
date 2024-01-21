@@ -100,6 +100,12 @@
     <ClCompile Include="internals.cpp">
       <Filter>internals</Filter>
     </ClCompile>
+    <ClCompile Include="imgui\implot.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\implot_items.cpp">
+      <Filter>Imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="netframeworkloader.h">
@@ -173,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="internals.h">
       <Filter>internals</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\implot.h">
+      <Filter>Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\implot_internal.h">
+      <Filter>Imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

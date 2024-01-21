@@ -80,6 +80,27 @@ namespace TunnelDweller.NetCore.Game
                 return GetMultilevelPointer(Process.GetCurrentProcess().MainModule.BaseAddress + 0xD01ea8, 0x38, 0x658);
             }
         }
+        public static IntPtr PLAYER_VX
+        {
+            get
+            {
+                return GetMultilevelPointer(Process.GetCurrentProcess().MainModule.BaseAddress + 0xD01EA8, 0x30, 0x440, 0x30, 0x08, 0x1BC);
+            }
+        }
+        public static IntPtr PLAYER_VY
+        {
+            get
+            {
+                return GetMultilevelPointer(Process.GetCurrentProcess().MainModule.BaseAddress + 0xD01EA8, 0x30, 0x440, 0x30, 0x08, 0x1C0);
+            }
+        }
+        public static IntPtr PLAYER_VZ
+        {
+            get
+            {
+                return GetMultilevelPointer(Process.GetCurrentProcess().MainModule.BaseAddress + 0xD01EA8, 0x30, 0x440, 0x30, 0x08, 0x1C4);
+            }
+        }
         public static IntPtr VIEWDISTANCE
         {
             get

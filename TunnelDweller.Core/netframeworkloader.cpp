@@ -223,6 +223,15 @@ VARIANT TunnelDweller::FrameworkLoader::LaunchAssembly(_AssemblyPtr pAssembly)
         "ColorPicker:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::ColorPicker),
         "ContainsFont:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::ContainsFont),
         "GetFont:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::GetFont),
+        "BeginPlot:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::BeginPlot),
+        "EndPlot:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::EndPlot),
+        "PlotLine:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::PlotLine),
+        "PlotBars:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::PlotBars),
+        "PlotShaded:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::PlotShaded),
+        "SetupAxes:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::SetupAxes),
+        "SetupAxesLimits:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::SetupAxesLimits),
+        "PushPlotStyleColor:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::PushPlotStyleColor),
+        "PopPlotStyleColor:" + std::to_string((intptr_t)&TunnelDweller::DotNetWrapper::DearImgui::PopPlotStyleColor),
 
         "[Minhook]",
         // MinHook.h

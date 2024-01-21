@@ -24,6 +24,7 @@ void TunnelDweller::Rendering::InitializeImgui()
 		return;
 
 	ImGui::CreateContext();
+	ImPlot::CreateContext();
 
 	auto io = ImGui::GetIO();
 	auto& style = ImGui::GetStyle();

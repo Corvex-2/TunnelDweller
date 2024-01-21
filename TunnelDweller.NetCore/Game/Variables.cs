@@ -119,6 +119,53 @@ namespace TunnelDweller.NetCore.Game
             }
         }
 
+        public static float PLAYER_VX
+        {
+            get
+            {
+                return MemoryManager.Read<float>(Offsets.PLAYER_VX);
+            }
+            set
+            {
+                MemoryManager.Write<float>(Offsets.PLAYER_VX, value);
+            }
+        }
+
+        public static float PLAYER_VY
+        {
+            get
+            {
+                return MemoryManager.Read<float>(Offsets.PLAYER_VY);
+            }
+            set
+            {
+                MemoryManager.Write<float>(Offsets.PLAYER_VY, value);
+            }
+        }
+
+        public static float PLAYER_VZ
+        {
+            get
+            {
+                return MemoryManager.Read<float>(Offsets.PLAYER_VZ);
+            }
+            set
+            {
+                MemoryManager.Write<float>(Offsets.PLAYER_VZ, value);
+            }
+        }
+
+        public static vec3_t Velocity
+        {
+            get
+            {
+                return MemoryManager.Read<vec3_t>(Offsets.PLAYER_VX);
+            }
+            set
+            {
+                MemoryManager.Write<vec3_t>(Offsets.PLAYER_VX, value);
+            }
+        }
         public static vec3_t Position
         {
             get

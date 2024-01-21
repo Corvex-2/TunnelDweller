@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using TunnelDweller.NetCore.DearImgui;
 using TunnelDweller.NetCore.Game;
 using TunnelDweller.NetCore.Randomness;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TunnelDweller.NetCore.Windowing
 {

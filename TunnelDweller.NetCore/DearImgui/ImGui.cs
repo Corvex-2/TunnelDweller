@@ -76,6 +76,15 @@ namespace TunnelDweller.NetCore.DearImgui
         internal static ColorPicker_t                   smColorPicker;
         internal static ContainsFont_t                  smContainsFont;
         internal static GetFont_t                       smGetFont;
+        internal static BeginPlot_t                     smBeginPlot;
+        internal static EndPlot_t                       smEndPlot;
+        internal static PlotLine_t                      smPlotLine;
+        internal static PlotBars_t                      smPlotBars;
+        internal static PlotShaded_t                    smPlotShaded;
+        internal static SetupAxesLimits_t               smSetupAxesLimits;
+        internal static SetupAxes_t                     smSetupAxes;
+        internal static PushPlotStyleColor_t            smPushPlotStyleColor;
+        internal static PopPlotStyleColor_t             smPopPlotStyleColor;
         #endregion
 
         #region Delegates
@@ -171,6 +180,24 @@ namespace TunnelDweller.NetCore.DearImgui
         internal delegate bool ContainsFont_t([MarshalAs(UnmanagedType.LPStr)] string lpName, float size);
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         internal delegate NetFontInfo_t GetFont_t([MarshalAs(UnmanagedType.LPStr)] string lpName, float size);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate bool BeginPlot_t([MarshalAs(UnmanagedType.LPStr)] string lpName, int flags);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void EndPlot_t();
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void PlotLine_t([MarshalAs(UnmanagedType.LPStr)] string lpName, float[] xData, float[] yData, int xyLength);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void PlotBars_t([MarshalAs(UnmanagedType.LPStr)] string lpName, float[] Data, int Length);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void PlotShaded_t([MarshalAs(UnmanagedType.LPStr)] string lpName, float[] Data, int Length);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void SetupAxes_t([MarshalAs(UnmanagedType.LPStr)] string x1, [MarshalAs(UnmanagedType.LPStr)] string x2, int flags);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void SetupAxesLimits_t(float xmin, float xmax, float ymin, float ymax);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void PushPlotStyleColor_t(int PlotCol, int r, int g, int b, int a);
+        [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+        internal delegate void PopPlotStyleColor_t();
         #endregion
 
         #region Public Implementations
@@ -399,6 +426,50 @@ namespace TunnelDweller.NetCore.DearImgui
             if(smGetFont != null)
                 return smGetFont(name, fntSize);
             return default;
+        }
+
+        public static bool BeginPlot(string name, int flags)
+        {
+            if(smBeginPlot != null) return smBeginPlot(name, flags);
+            return false;
+        }
+        public static void EndPlot()
+        {
+            if(smEndPlot != null) smEndPlot();
+        }
+        public static void PlotLines(string name, float[] xData, float[] yData, int xyLength)
+        {
+            if (xData.Length != yData.Length) return;
+            if(yData.Length != xyLength || yData.Length != xyLength) return;
+            if(smPlotLine != null) smPlotLine(name, xData, yData, xyLength);
+        }
+        public static void PlotBars(string name, float[] Data, int Length)
+        {
+            if(Data.Length != Length) return;
+            if(smPlotBars != null) smPlotBars(name, Data, Length);
+        }
+        public static void PlotShaded(string name, float[] Data, int Length)
+        {
+            if(Data.Length != Length) return;
+            if (smPlotShaded != null) smPlotShaded(name, Data, Length);
+        }
+        public static void SetupAxes(string x1name, string x2name, int flags)
+        {
+            if(smSetupAxes !=  null) smSetupAxes(x1name, x2name, flags);
+        }
+        public static void SetupAxesLimits(float xmin, float xmax, float ymin, float ymax)
+        {
+            if(smSetupAxesLimits != null) smSetupAxesLimits(xmin, xmax, ymin, ymax);
+        }
+        public static void PushPlotStyleColor(ImPlotCol plotcol, col32_t col)
+        {
+            if (smPushPlotStyleColor != null) smPushPlotStyleColor((int)plotcol, col.RByte, col.GByte, col.BByte, col.AByte);
+            Console.WriteLine("Push = " + (smPushPlotStyleColor == null).ToString());
+        }
+        public static void PopPlotStyleColor()
+        {
+            if (smPopPlotStyleColor != null) smPopPlotStyleColor();
+            Console.WriteLine("Pop = " + (smPopPlotStyleColor == null).ToString());
         }
         #endregion
 

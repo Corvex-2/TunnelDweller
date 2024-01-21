@@ -272,3 +272,47 @@ bool __stdcall TunnelDweller::DotNetWrapper::DearImgui::ColorPicker(const char* 
 {
 	return ImGui::ColorEdit4(name, flt, NULL);
 }
+
+bool __stdcall TunnelDweller::DotNetWrapper::DearImgui::BeginPlot(const char* name, int flags)
+{
+	return ImPlot::BeginPlot(name, ImVec2(-1, 0), flags);
+}
+
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::EndPlot()
+{
+	ImPlot::EndPlot();
+}
+
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::PlotLine(const char* name, float* xData, float* yData, int xyLength)
+{
+	ImPlot::PlotLine(name, xData, yData, xyLength);
+}
+
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::PlotBars(const char* name, float* Data, int Length)
+{
+	ImPlot::PlotBars(name, Data, Length);
+}
+
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::PlotShaded(const char* name, float* data, int length)
+{
+	ImPlot::PlotShaded(name, data, length);
+}
+
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::SetupAxes(const char* x1name, const char* x2name, int flags)
+{
+	ImPlot::SetupAxes(x1name, x2name, flags, flags);
+}
+
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::SetupAxesLimits(float x1min, float x1max, float y1min, float y1max)
+{
+	ImPlot::SetupAxesLimits(x1min, x1max, y1min, y1max);
+}
+
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::PushPlotStyleColor(int implotcol, int r, int g, int b, int a)
+{
+	ImPlot::PushStyleColor(implotcol, IM_COL32(r, g, b, a));
+}
+void __stdcall TunnelDweller::DotNetWrapper::DearImgui::PopPlotStyleColor()
+{
+	ImPlot::PopStyleColor();
+}
