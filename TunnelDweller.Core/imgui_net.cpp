@@ -273,9 +273,9 @@ bool __stdcall TunnelDweller::DotNetWrapper::DearImgui::ColorPicker(const char* 
 	return ImGui::ColorEdit4(name, flt, NULL);
 }
 
-bool __stdcall TunnelDweller::DotNetWrapper::DearImgui::BeginPlot(const char* name, int flags)
+bool __stdcall TunnelDweller::DotNetWrapper::DearImgui::BeginPlot(const char* name, int flags, ImVec2 w)
 {
-	return ImPlot::BeginPlot(name, ImVec2(-1, 0), flags);
+	return ImPlot::BeginPlot(name, w, flags);
 }
 
 void __stdcall TunnelDweller::DotNetWrapper::DearImgui::EndPlot()

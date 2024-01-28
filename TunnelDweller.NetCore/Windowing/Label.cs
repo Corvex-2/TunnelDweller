@@ -13,6 +13,7 @@ namespace TunnelDweller.NetCore.Windowing
         public Font Font { get; set; }
         public bool Visible { get; set; } = true;
         public col32_t Color { get; set; } = new col32_t(255, 255, 255, 255);
+        public vec2_t Position { get; set; } = vec2_t.MinusOne;
 
         public Label(string Text)
         {
@@ -33,6 +34,9 @@ namespace TunnelDweller.NetCore.Windowing
 
             if (Sameline)
                 ImGui.SameLine(0, -1);
+
+            if(Position != vec2_t.MinusOne)
+                ImGui.SetCursorPosition(Position.x, Position.y);
 
             ImGui.PushColorVar(ImGuiCol.ImGuiCol_Text, Color.RByte, Color.GByte, Color.BByte, Color.AByte);
 

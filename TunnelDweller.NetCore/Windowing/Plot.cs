@@ -26,6 +26,10 @@ namespace TunnelDweller.NetCore.Windowing
 
         public col32_t BackgroundColor { get; set; }
         public col32_t ForegroundColor { get; set; }
+        public col32_t BorderColor { get; set; }
+
+        public vec2_t Position { get; set; } = vec2_t.MinusOne;
+        public vec2_t Size { get; set; } = new vec2_t(-1, 0);
 
         public Plot(string Name)
         {
@@ -41,11 +45,15 @@ namespace TunnelDweller.NetCore.Windowing
         {
             if (UseColours)
             {
+                ImGui.PushPlotStyleColor(ImPlotCol.ImPlotCol_PlotBorder, BorderColor);
                 ImGui.PushPlotStyleColor(ImPlotCol.ImPlotCol_PlotBg, BackgroundColor);
                 ImGui.PushPlotStyleColor(ImPlotCol.ImPlotCol_Fill, ForegroundColor);
             }
 
-            var success = ImGui.BeginPlot(Name, (int)PlotFlags);
+            if (Position != vec2_t.MinusOne)
+                ImGui.SetCursorPosition(Position.x, Position.y);
+
+            var success = ImGui.BeginPlot(Name, (int)PlotFlags, Size);
 
             if (success)
             {
@@ -62,6 +70,7 @@ namespace TunnelDweller.NetCore.Windowing
 
             if (UseColours)
             {
+                ImGui.PopPlotStyleColor();
                 ImGui.PopPlotStyleColor();
                 ImGui.PopPlotStyleColor();
             }

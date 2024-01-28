@@ -181,7 +181,7 @@ namespace TunnelDweller.NetCore.DearImgui
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         internal delegate NetFontInfo_t GetFont_t([MarshalAs(UnmanagedType.LPStr)] string lpName, float size);
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        internal delegate bool BeginPlot_t([MarshalAs(UnmanagedType.LPStr)] string lpName, int flags);
+        internal delegate bool BeginPlot_t([MarshalAs(UnmanagedType.LPStr)] string lpName, int flags, vec2_t w);
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         internal delegate void EndPlot_t();
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
@@ -430,7 +430,12 @@ namespace TunnelDweller.NetCore.DearImgui
 
         public static bool BeginPlot(string name, int flags)
         {
-            if(smBeginPlot != null) return smBeginPlot(name, flags);
+            if(smBeginPlot != null) return smBeginPlot(name, flags, new vec2_t(-1, 0));
+            return false;
+        }
+        public static bool BeginPlot(string name, int flags, vec2_t w)
+        {
+            if (smBeginPlot != null) return smBeginPlot(name, flags, w);
             return false;
         }
         public static void EndPlot()
@@ -464,12 +469,10 @@ namespace TunnelDweller.NetCore.DearImgui
         public static void PushPlotStyleColor(ImPlotCol plotcol, col32_t col)
         {
             if (smPushPlotStyleColor != null) smPushPlotStyleColor((int)plotcol, col.RByte, col.GByte, col.BByte, col.AByte);
-            Console.WriteLine("Push = " + (smPushPlotStyleColor == null).ToString());
         }
         public static void PopPlotStyleColor()
         {
             if (smPopPlotStyleColor != null) smPopPlotStyleColor();
-            Console.WriteLine("Pop = " + (smPopPlotStyleColor == null).ToString());
         }
         #endregion
 

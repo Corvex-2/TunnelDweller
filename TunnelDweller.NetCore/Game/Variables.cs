@@ -279,7 +279,28 @@ namespace TunnelDweller.NetCore.Game
                 return MemoryManager.Read<int>(Offsets.GAME_TIME);
             }
         }
-
+        public static float Timescale
+        {
+            get
+            {
+                return MemoryManager.Read<float>(Offsets.TIMESCALE);
+            }
+            set
+            {
+                MemoryManager.Write<float>(Offsets.TIMESCALE, value);
+            }
+        }
+        public static float Gamma
+        {
+            get
+            {
+                return MemoryManager.Read<float>(Offsets.R_GAMMA);
+            }
+            set
+            {
+                MemoryManager.Write<float>(Offsets.R_GAMMA, value);
+            }
+        }
         public static string GetLevelName(int levelId)
         {
             switch (levelId)

@@ -171,6 +171,20 @@ namespace TunnelDweller.NetCore.Game
                 return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD236E0 + 0x328;
             }
         }
+        public static IntPtr TIMESCALE
+        {
+            get
+            {
+                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xd07670;
+            }
+        }
+        public static IntPtr R_GAMMA
+        {
+            get
+            {
+                return Process.GetCurrentProcess().MainModule.BaseAddress + 0xcf45a8;
+            }
+        }
         public static IntPtr FNDRAW_GWORLD
         {
             get

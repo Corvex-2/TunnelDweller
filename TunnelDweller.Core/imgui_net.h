@@ -98,7 +98,7 @@ namespace TunnelDweller::DotNetWrapper::DearImgui
 
 	bool __stdcall ColorPicker(const char* name, float* flt);
 
-	bool __stdcall BeginPlot(const char* name, int flags);
+	bool __stdcall BeginPlot(const char* name, int flags, ImVec2 w);
 	void __stdcall EndPlot();
 	void __stdcall PlotLine(const char* name, float* xData, float* yData, int xyLength);
 	void __stdcall PlotBars(const char* name, float* Data, int Length);
