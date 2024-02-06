@@ -15,6 +15,7 @@ using TunnelDweller.NetCore.Game;
 using System.Reflection;
 using TunnelDweller.NetCore.Threading;
 using System.Net;
+using TunnelDweller.NetCore.API;
 
 namespace TunnelDweller.NetCore.Moduling
 {
@@ -27,7 +28,6 @@ namespace TunnelDweller.NetCore.Moduling
         internal static TabItem ModuleManagerTab;
         internal static List<ModuleView> ModuleViews;
 
-        internal const string NETWORK_MODULES = "http://download.technicaldifficulties.de/files/metro/modules/";
         internal static bool networked;
 
         internal static string ModulePath
@@ -57,17 +57,15 @@ namespace TunnelDweller.NetCore.Moduling
             if (networked)
                 return;
 
-            var client = new WebClient();
-            var str = client.DownloadString(NETWORK_MODULES);
-            foreach(var mod in str.Split(new[] { ';' }))
+            foreach(var mod in TechnicalMetroApi.GetModules())
             {
-                var data = client.DownloadData(NETWORK_MODULES +  mod);
-                var dot = mod.LastIndexOf('.');
-                var name = mod;
+                var data = mod.moduleData;
+                var dot = mod.moduleName.LastIndexOf('.');
+                var name = mod.moduleName;
                 if(dot != -1)
-                    name = mod.Substring(0, dot);
+                    name = mod.moduleName.Substring(0, dot);
 
-                var module = new ModuleBase(NETWORK_MODULES + mod, name, data, true);
+                var module = new ModuleBase($"http://api.technicaldifficulties.de\\{name}", name, data, true);
                 var view = new ModuleView(module);
 
 

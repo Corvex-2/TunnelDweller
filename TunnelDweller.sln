@@ -17,6 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TunnelDweller.WidescreenFix
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TunnelDweller.SpeedMeter", "TunnelDweller.SpeedMeter\TunnelDweller.SpeedMeter.csproj", "{0D63031D-8AEE-475B-AC45-61565E6905A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TunnelDweller.VarMod", "TunnelDweller.VarMod\TunnelDweller.VarMod.csproj", "{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TunnelDweller.Shared", "TunnelDweller.Shared\TunnelDweller.Shared.shproj", "{06A53C11-03E4-44BF-9373-33210CFF09F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TunnelDweller.Updater", "TunnelDweller.Updater\TunnelDweller.Updater.csproj", "{19C009F0-05D6-4C72-B495-E2C3523A7357}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,11 +117,41 @@ Global
 		{0D63031D-8AEE-475B-AC45-61565E6905A4}.Release|x64.Build.0 = Release|x64
 		{0D63031D-8AEE-475B-AC45-61565E6905A4}.Release|x86.ActiveCfg = Release|Any CPU
 		{0D63031D-8AEE-475B-AC45-61565E6905A4}.Release|x86.Build.0 = Release|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Debug|x64.Build.0 = Debug|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Debug|x86.Build.0 = Debug|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Release|x64.ActiveCfg = Release|x64
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Release|x64.Build.0 = Release|x64
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Release|x86.ActiveCfg = Release|Any CPU
+		{034E8C0E-E6C4-4ED2-AB37-590AA77CBA51}.Release|x86.Build.0 = Release|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Debug|x64.Build.0 = Debug|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Debug|x86.Build.0 = Debug|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Release|x64.ActiveCfg = Release|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Release|x64.Build.0 = Release|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Release|x86.ActiveCfg = Release|Any CPU
+		{19C009F0-05D6-4C72-B495-E2C3523A7357}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {695649EE-BDA5-4C78-98B2-C834F68B33D3}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		TunnelDweller.Shared\TunnelDweller.Shared.projitems*{06a53c11-03e4-44bf-9373-33210cff09f4}*SharedItemsImports = 13
+		TunnelDweller.Shared\TunnelDweller.Shared.projitems*{19c009f0-05d6-4c72-b495-e2c3523a7357}*SharedItemsImports = 5
+		TunnelDweller.Shared\TunnelDweller.Shared.projitems*{9093748e-9c57-453e-bd72-f65c9eff381b}*SharedItemsImports = 4
+		TunnelDweller.Shared\TunnelDweller.Shared.projitems*{bfc4406f-ca3d-4a8b-b3c0-9ee4644debef}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

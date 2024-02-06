@@ -1,5 +1,4 @@
-﻿using TunnelDweller.Memory;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -214,13 +213,21 @@ namespace TunnelDweller.NetCore.Game
             }
         }
 
+        internal static IntPtr CCAVEPTR
+        {
+            get
+            {
+                return Process.GetCurrentProcess().MainModule.BaseAddress + 0x3b0;
+            }
+        }
+
         private static IntPtr GetMultilevelPointer(IntPtr Base, params int[] Levels)
         {
-            var read = MemoryManager.Read<IntPtr>(Base);
+            var read = Variables.MemoryManager.Read<IntPtr>(Base);
 
             for(int i = 0; i < Levels.Length - 1; i++) 
             {
-                read = MemoryManager.Read<IntPtr>(read + Levels[i]);
+                read = Variables.MemoryManager.Read<IntPtr>(read + Levels[i]);
             }
             return read + Levels.Last();
         }

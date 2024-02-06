@@ -5,8 +5,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using TunnelDweller.Memory;
 using TunnelDweller.NetCore.DearImgui;
+using TunnelDweller.Shared.Memory;
+using TunnelDweller.Shared.Memory.Enums;
 
 namespace TunnelDweller.NetCore.Windowing
 {
@@ -43,7 +44,7 @@ namespace TunnelDweller.NetCore.Windowing
 
             if (!ImGui.ContainsFont(Name, Size))
             {
-                MemPtr = Natives.VirtualAlloc(IntPtr.Zero, FontData.Length, 0x00001000, (int)PROTECTION.PAGE_EXECUTE_READWRITE); //Marshal.AllocHGlobal(FontData.Length);
+                MemPtr = Win32Natives.VirtualAlloc(IntPtr.Zero, FontData.Length, AllocationType.MEM_COMMIT, Protection.PAGE_EXECUTE_READWRITE); //Marshal.AllocHGlobal(FontData.Length);
 
                 Marshal.Copy(FontData, 0, MemPtr, FontData.Length);
 

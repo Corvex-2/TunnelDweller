@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TunnelDweller.Memory;
+using TunnelDweller.NetCore.Game;
 
 namespace TunnelDweller.WidescreenFix
 {
@@ -16,7 +16,7 @@ namespace TunnelDweller.WidescreenFix
         public WidescreenPatch(int offset, int length)
         {
             Offset = offset;
-            this.Opcodes = MemoryManager.Read(MemoryManager.GetBase() + offset, length);
+            this.Opcodes = Variables.MemoryManager.Read(Variables.MemoryManager.Base + offset, length);
         }
 
         public void Patch()
@@ -27,8 +27,8 @@ namespace TunnelDweller.WidescreenFix
             if (Patched) return;
 
             var patchData = Enumerable.Repeat<byte>(0x90, Opcodes.Length).ToArray();
-            var ptr = MemoryManager.GetBase() + Offset;
-            MemoryManager.Write(ptr, patchData);
+            var ptr = Variables.MemoryManager.Base + Offset;
+            Variables.MemoryManager.Write(ptr, patchData);
             Patched = true;
         }
 
@@ -39,15 +39,15 @@ namespace TunnelDweller.WidescreenFix
 
             if (!Patched) return;
 
-            var ptr = MemoryManager.GetBase() + Offset;
-            MemoryManager.Write(ptr, Opcodes);
+            var ptr = Variables.MemoryManager.Base + Offset;
+            Variables.MemoryManager.Write(ptr, Opcodes);
             Patched = false;
         }
 
         public bool IsPatchedAlready()
         {
-            var ptr = MemoryManager.GetBase() + Offset;
-            return MemoryManager.Read<byte>(ptr) == 0x90;
+            var ptr = Variables.MemoryManager.Base + Offset;
+            return Variables.MemoryManager.Read<byte>(ptr) == 0x90;
         }
     }
 }

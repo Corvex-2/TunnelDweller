@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
+using TunnelDweller.NetCore.API;
 using TunnelDweller.NetCore.DearImgui;
 using TunnelDweller.NetCore.Extensions;
 using TunnelDweller.NetCore.Game;
@@ -17,6 +19,19 @@ namespace TunnelDweller.NetCore
         public static int Main(string[] args)
         {
             Console.WriteLine($"TunnelDweller.NetCore loaded successfully into {Process.GetCurrentProcess().ProcessName} / AppDomain {AppDomain.CurrentDomain.FriendlyName}");
+            
+            Console.WriteLine($"Writing CCAVE Data");
+
+            Variables.MemoryManager.WriteString(Offsets.CCAVEPTR, "TunnelDweller", Encoding.ASCII);
+
+            if (Variables.MemoryManager.ReadString(Offsets.CCAVEPTR, Encoding.ASCII, 15) == "TunnelDweller")
+                Console.WriteLine("CCAVE Data success!");
+            else
+                Console.WriteLine("CCAVE Data failed!");
+
+            TechnicalMetroApi.RELEASESTREAM = Variables.MemoryManager.ReadString(Variables.MemoryManager.Base + 0x3b0 + 0x20, Encoding.ASCII, 32);
+
+            Console.Title = $"TunnelDweller - Build: {TechnicalMetroApi.RELEASESTREAM}";
 
             typeof(ImGui).PopulateDefinitions(args, "[Imgui_Net]");
             typeof(Renderer).PopulateDefinitions(args, "[CallbackRenderer]");

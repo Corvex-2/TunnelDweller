@@ -4,13 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TunnelDweller.Memory;
 using TunnelDweller.NetCore.DearImgui;
+using TunnelDweller.Shared.Memory.Processing;
 
 namespace TunnelDweller.NetCore.Game
 {
     public static class Variables
     {
+        public static InternalMemory MemoryManager { get; private set; } = new InternalMemory();
+
         public static int Target_FPS
         {
             get

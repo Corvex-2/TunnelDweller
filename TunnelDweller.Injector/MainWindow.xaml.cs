@@ -1,11 +1,14 @@
 ﻿using Lunar;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,81 +20,200 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TunnelDweller.Shared.Memory.Processing;
 
 namespace TunnelDweller.Injector
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        public const string NETCOREURL = "http://download.technicaldifficulties.de/files/metro/core/TunnelDweller.NetCore";
-        public const string COREURL = "http://download.technicaldifficulties.de/files/metro/core/TunnelDweller.Core";
-
+        public ObservableCollection<string> Releases { get; set; } = new ObservableCollection<string>() { };
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            border.Background = new ImageBrush(BackgroundImage);
         }
 
-        public void InjectCore()
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var data = new WebClient().DownloadData(COREURL);
-            var Mapper = new LibraryMapper(Process.GetProcessesByName("metro").First(), new Memory<byte>(data), MappingFlags.None);
-            Mapper.MapLibrary();
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
         }
 
-        public void InjectNetCore()
+        public ImageSource BackgroundImage
         {
-            var data = new WebClient().DownloadData(NETCOREURL);
-            using (NamedPipeClientStream pipeStream = new NamedPipeClientStream(".", "TUNNEL.DWELLER", PipeDirection.InOut))
+            get
             {
-                pipeStream.Connect();
+                var recStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TunnelDweller.Injector.Files.windowbg.png");
+                if (recStream == null)
+                    return null;
 
-                if (!pipeStream.IsConnected)
-                {
-                    MessageBox.Show("An Error occured while injecting! TUNNEL.DWELLER Pipe not connect!");
-                    return;
-                }
+                var data = new byte[recStream.Length];
+                recStream.Read(data, 0, data.Length);
 
-                char[] buffer = new char[256];
-                string strbuffer = "";
+                BitmapImage biImg = new BitmapImage();
+                MemoryStream ms = new MemoryStream(data);
+                biImg.BeginInit();
+                biImg.StreamSource = ms;
+                biImg.EndInit();
 
-                using (StreamReader reader = new StreamReader(pipeStream))
-                {
-                    while (true)
-                    {
-                        if (reader.Peek() > 0)
-                        {
-                            reader.Read(buffer, 0, buffer.Length);
-                            strbuffer = new string(buffer, 0, buffer.Length);
-                            if (strbuffer.StartsWith("TUNNEL.DWELLER"))
-                            {
-                                pipeStream.Flush();
-                                var writeData = new byte[data.Length + 4];
-                                var lengthBytes = BitConverter.GetBytes(data.Length);
-                                Array.Copy(lengthBytes, 0, writeData, 0, 4);
-                                Array.Copy(data, 0, writeData, 4, data.Length);
-                                pipeStream.Write(writeData, 0, writeData.Length);
-                                pipeStream.Flush();
-                                pipeStream.Close();
-                                Environment.Exit(0);
-                            }
-                            else if (strbuffer.StartsWith("TUNNEL.INJECTED"))
-                                Console.WriteLine("Already Loaded!");
-                        }
-                    }
-                }
+                return biImg;
+            }
+            set
+            {
+                return;
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public ImageSource GitHubImage
         {
-            if (Process.GetProcessesByName("metro").Length <= 0)
-                return;
+            get
+            {
+                var recStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TunnelDweller.Injector.Files.github-logo.png");
+                if (recStream == null)
+                    return null;
 
-            InjectCore();
-            InjectNetCore();
+                var data = new byte[recStream.Length];
+                recStream.Read(data, 0, data.Length);
+
+                BitmapImage biImg = new BitmapImage();
+                MemoryStream ms = new MemoryStream(data);
+                biImg.BeginInit();
+                biImg.StreamSource = ms;
+                biImg.EndInit();
+
+                return biImg;
+            }
+        }
+
+        public string News
+        {
+            get
+            {
+                return TechnicalMetroApi.GetNews();
+            }
+            set
+            {
+                return;
+            }
+        }
+
+        private void button_Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void button_Close_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void wnd_Loaded(object sender, RoutedEventArgs e)
+        {
+            new Task(() =>
+            {
+
+                var releases = TechnicalMetroApi.GetReleaseStreams();
+
+                if (releases.Length > 0)
+                {
+                    for (int i = 0; i < releases.Length; i++)
+                    {
+                        if (Releases.Contains(releases[i]))
+                            continue;
+                        Dispatcher.Invoke(new Action(() => { Releases.Add(releases[i]); }));
+                    }
+                }
+
+            }).Start();
+
+#if RELEASE
+
+            new Task(() =>
+            {
+                var sys = "TunnelDweller.Updater.exe";
+
+                if (!File.Exists(sys))
+                    return;
+
+                var fname = Process.GetCurrentProcess().MainModule.FileName;
+
+                if(fname != null && File.Exists(fname))
+                {
+                    using (SHA256 sha = SHA256.Create())
+                    {
+                        var fileHash = Convert.ToBase64String(sha.ComputeHash(File.ReadAllBytes(fname)));
+                        var remoteHash = TechnicalMetroApi.GetVersion();
+                        if (fileHash != remoteHash)
+                        {
+                            var result = MessageBox.Show("An Update for the Injector is available!\r\ndo you want to download it now?", "TunnelDweller", MessageBoxButton.YesNo);
+                        
+                            if(result == MessageBoxResult.Yes)
+                            {
+                                var proc = Process.Start(sys);
+                                Environment.Exit(0);
+                            }
+                        }
+                    }
+
+                }
+
+            }).Start();
+
+#endif
+        }
+
+        private void button_Inject_Click(object sender, RoutedEventArgs e)
+        {
+            if(listBox_ReleaseStreams.SelectedIndex < 0)
+            {
+                MessageBox.Show("You need to select a Release Stream first!");
+                return;
+            }
+            if(Process.GetProcessesByName("metro").Length <= 0)
+            {
+                MessageBox.Show("You need to start a Metro Redux game first!");
+                return;
+            }
+
+            var proc = Process.GetProcessesByName("metro").First();
+
+            if (InjectionRoutine.IsInjected(proc))
+            {
+                MessageBox.Show("TunnelDweller is already loaded in the process.");
+                return;
+            }
+
+            var exmem = new MemoryExternal(proc);
+            exmem.Initialize();
+            var release = Releases[listBox_ReleaseStreams.SelectedIndex];
+            var memptr = proc.MainModule.BaseAddress + 0x3b0 + 0x20;
+
+            exmem.WriteString(memptr, release, Encoding.ASCII);
+            var read = exmem.ReadString(memptr, Encoding.ASCII, release.Length);
+
+            if (!read.StartsWith(release))
+            {
+                MessageBox.Show("Unable to embed Release Stream!");
+                return;
+            }
+
+            var cores = TechnicalMetroApi.GetCores(Releases[listBox_ReleaseStreams.SelectedIndex]);
+
+            if (cores.core != null && cores.netcore != null)
+            {
+                InjectionRoutine.InjectCore(cores.core);
+                InjectionRoutine.InjectNetCore(cores.netcore);
+            }
+            else
+                MessageBox.Show($"Invalid Param Count\r\nCores.Core == null = {cores.core == null},\r\nCores.NetCore == null ={cores.netcore == null}");
+        }
+
+        private void viewonGitHub_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                Process.Start(new ProcessStartInfo("https://github.com/Corvex-2/TunnelDweller/") { UseShellExecute = true, Verb = "open" });
         }
     }
 }

@@ -4,6 +4,7 @@
 #include "renderer.h"
 #include "globals.h"
 #include "internals.h"
+#include "cconsole.h"
 
 namespace TunnelDweller::Globals
 {
@@ -17,6 +18,7 @@ DWORD __stdcall Run(LPVOID Param)
 
     TunnelDweller::Rendering::InitializeRendering();
     TunnelDweller::FrameworkLoader::LoadFramework(Param);
+    TunnelDweller::Metro::Internals::CConsole::Initialize();
     TunnelDweller::Metro::Internals::initialize();
 
     while (true) 
