@@ -128,8 +128,6 @@ namespace TunnelDweller.Injector
 
             }).Start();
 
-#if RELEASE
-
             new Task(() =>
             {
                 var sys = "TunnelDweller.Updater.exe";
@@ -160,8 +158,6 @@ namespace TunnelDweller.Injector
                 }
 
             }).Start();
-
-#endif
         }
 
         private void button_Inject_Click(object sender, RoutedEventArgs e)
