@@ -9,6 +9,7 @@ using TunnelDweller.NetCore.Moduling;
 using TunnelDweller.NetCore.Input;
 using TunnelDweller.NetCore.Windowing;
 using TunnelDweller.NetCore.Game;
+using TunnelDweller.NetCore.API;
 
 namespace TunnelDweller.NetCore.Rendering
 {
@@ -62,6 +63,10 @@ namespace TunnelDweller.NetCore.Rendering
 
         internal static void Callback()
         {
+            Font.Default().PushFont();
+            ImGui.ImDrawText($"[BETA] TunnelDweller - Build: {TechnicalMetroApi.RELEASESTREAM}", 12, 12, 12, 255, 255, 255, 177);
+            Font.Default().PopFont();
+
             if (Window.Windows.Any(x => x.Show == true) || Popup.Popups.Any(x => x.Active == true))
                 ImGui.SetCursorVisibility(true);
             else

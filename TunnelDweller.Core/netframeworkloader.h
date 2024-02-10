@@ -16,6 +16,7 @@
 #include "callback.h"
 #include "imgui_net.h"
 #include "minhook/include/MinHook.h"
+#include "cconsole.h"
 
 #pragma comment(lib, "mscoree.lib")
 

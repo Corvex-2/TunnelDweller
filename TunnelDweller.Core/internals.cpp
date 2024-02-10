@@ -1,5 +1,4 @@
 #include "internals.h"
-#include "cconsole.h"
 #include "minhook/include/MinHook.h"
 
 using namespace TunnelDweller::Metro::Internals::CConsole;
@@ -51,15 +50,6 @@ long long __fastcall TunnelDweller::Metro::Internals::hkFireProjectileWeapon(lon
 //3e7340
 void __fastcall TunnelDweller::Metro::Internals::hkCLevelOnKeyPress(void* handler, int action, int key, int state, int resending)
 {
-	Log("handler = %p action = %d, key = %d, state = %d, resending = %d\n", handler, action, key, state, resending);
-
-	if (key == 41) // this ned to be cleaned up!
-	{
-		CConsoleGet = (CConsole_Get)((uintptr_t)GetModuleHandleA(NULL) + (uintptr_t)0x64c900);
-		CConsoleInstance = CConsoleGet();
-		(*CConsoleInstance)->CExecuteDeferred(CConsoleInstance, "change_map 2033\\000");
-	}
-
 	if (soCLevelOnKeyPress)
 		soCLevelOnKeyPress(handler, action, key, state, resending);
 }

@@ -3,6 +3,7 @@
 #include "minhook/include/MinHook.h"
 #include "globals.h"
 #include "callback.h"
+#include "cconsole.h"
 
 void TunnelDweller::Rendering::InitializeRendering()
 {
@@ -146,11 +147,6 @@ void TunnelDweller::Rendering::OnDraw()
 	if (ImguiInitialized)
 	{
 		TunnelDweller::Callbacks::FireDrawCallbacks();
-
-		auto draw = ImGui::GetBackgroundDrawList();
-		auto fnt = ImGui::GetIO().FontDefault;
-		draw->AddText(fnt, 12 , ImVec2(12, 12), IM_COL32(255, 255, 255, 255), "[BETA] Tunnel Dweller");
-
 	}
 }
 
@@ -219,6 +215,7 @@ HRESULT __stdcall TunnelDweller::Rendering::hkKeyboardGetDeviceData(IDirectInput
 			auto imgui = MapDirectInputKeyToImGuiKey(skCode);
 			auto hkl = GetKeyboardLayout(0);
 			auto vkCode = MapVirtualKeyEx(skCode, 0x01, hkl);
+
 
 			auto shallSuppress = TunnelDweller::Callbacks::FireInputCallbacks(vkCode, skCode, LOBYTE(rgdod[i].dwData) > 0);
 

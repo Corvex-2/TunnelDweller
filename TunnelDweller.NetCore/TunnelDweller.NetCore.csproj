@@ -102,6 +102,8 @@
     <Compile Include="DearImgui\vec3_t.cs" />
     <Compile Include="DearImgui\vec4_t.cs" />
     <Compile Include="Extensions\TypeEx.cs" />
+    <Compile Include="Game\CConsole.cs" />
+    <Compile Include="Game\CommandEventArgs.cs" />
     <Compile Include="Game\Offsets.cs" />
     <Compile Include="Game\Variables.cs" />
     <Compile Include="Initialize.cs" />
@@ -138,6 +140,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="Resources\Raleway-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Inter-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">

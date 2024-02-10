@@ -88,10 +88,10 @@ namespace TunnelDweller.Overlay
                 {
                     default:
                     case 0:
-                        sb.AppendLine($"Game Time: {TimeSpan.FromMilliseconds(Variables.GameTime - 1000000).ToString("hh\\:mm\\:ss\\.fff")}");
+                        sb.AppendLine($"Game Time: {TimeSpan.FromMilliseconds(Variables.GameTime).ToString("hh\\:mm\\:ss\\.fff")}");
                         break;
                     case 1:
-                        sb.AppendLine($"Game Time: {Variables.GameTime - 1000000}");
+                        sb.AppendLine($"Game Time: {Variables.GameTime}");
                         break;
                 }
             }

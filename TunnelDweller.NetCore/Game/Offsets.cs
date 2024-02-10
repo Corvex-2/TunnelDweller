@@ -149,6 +149,13 @@ namespace TunnelDweller.NetCore.Game
                 return Process.GetCurrentProcess().MainModule.BaseAddress + 0xD044CC; //0xD22EBC;
             }
         }
+        public static IntPtr IGT_WRITEABLE
+        {
+            get
+            {
+                return GetMultilevelPointer(Process.GetCurrentProcess().MainModule.BaseAddress + 0xD01E18, 0x98);
+            }
+        }
         public static IntPtr WINDOW_TIME
         {
             get

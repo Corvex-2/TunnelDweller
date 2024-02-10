@@ -89,7 +89,7 @@ namespace TunnelDweller.NetCore.Windowing
             if (_default == null)
             {
                 var asm = Assembly.GetExecutingAssembly();
-                var resName = asm.GetName().Name + ".Resources.Raleway-Regular.ttf";
+                var resName = asm.GetName().Name + ".Resources.Inter-Regular.ttf";
                 using (var n = asm.GetManifestResourceStream(resName))
                 {
                     if (n != null)

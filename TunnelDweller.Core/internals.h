@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <cstdio>
+#include "cconsole.h"
 
 #define CONSOLE_LOGGING true
 #if CONSOLE_LOGGING

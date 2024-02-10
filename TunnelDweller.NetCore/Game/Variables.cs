@@ -33,6 +33,18 @@ namespace TunnelDweller.NetCore.Game
             }
         }
 
+        public static int IFT_ACUTAL
+        {
+            get
+            {
+                return MemoryManager.Read<int>(Offsets.IGT_WRITEABLE);
+            }
+            set
+            {
+                MemoryManager.Write<int>(Offsets.IGT_WRITEABLE, value);
+            }
+        }
+
         public static IntPtr LevelInstance
         {
             get

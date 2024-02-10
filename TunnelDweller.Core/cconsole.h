@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
-
 #include <cstdio>
+#include <set>
 
 #define CONSOLE_LOGGING true
 #if CONSOLE_LOGGING
@@ -10,61 +10,23 @@
 #define Log()
 #endif
 
-struct CConsoleCmd
-{
-	void* vtable;
-	const char* cmd;
-	char enabled : 1;
-	char lcarg : 1;
-	char earghandling : 1;
-	char save : 1;
-	char option : 1;
-};
-struct CConsoleMask : CConsoleCmd
-{
-	unsigned int* value;
-	unsigned int mask;
-	unsigned int mask_on;
-	unsigned int mask_off;
+typedef bool(__stdcall* CommandHandler_t)(char* command);
 
-	void* u1;
-	void* u2;
-	void* u3;
-	void* u4;
-
-	void construct(void* vt, const char* n, unsigned int* flags, unsigned int mask)
-	{
-		vtable = vt;
-		cmd = n;
-		enabled = 1;
-		lcarg = 1;
-		earghandling = 0;
-		save = 1;
-		option = 0;
-
-		value = flags;
-		mask = mask;
-		mask_on = mask;
-		mask_off = mask;
-	}
-};
-
-typedef void(__thiscall* CConsole_AddCommand)(void* lpConsole, CConsoleCmd* lpCommand);
 typedef void(__thiscall* CConsole_Show)(void* lpConsole);
 typedef void(__cdecl* CConsole_ExecuteDeferred)(void* lpConsole, const char* lpCmdString, ...);
-
+typedef void(__cdecl* CConsole_Execute)(void* lpConsole, const char* lpCmdString, ...);
 
 struct CConsoleManager
 {
 	void* CInstance;
 	void* CRender;
 	void* CFrame;
-	CConsole_AddCommand CAdd;
+	void* CAdd;
 	void* CRemove;
 	void* CFind;
 	CConsole_Show CShow;
 	void* CHide;
-	void* CExecute;
+	CConsole_Execute CExecute;
 	CConsole_ExecuteDeferred CExecuteDeferred;
 	void* CExecuteCommit;
 	void* CEnumerate;
@@ -75,17 +37,42 @@ struct CConsoleManager
 };
 
 typedef CConsoleManager** (__stdcall* CConsole_Get)();
+typedef int(__fastcall* CConsole_Print)(const char* format);
+typedef void(__fastcall* CConsole_HandleCommand)(const char* command);
 
 namespace TunnelDweller::Metro::Internals::CConsole
 {
-	static bool Initialized;
+	// Callbacks
+	extern std::set<CommandHandler_t> soCommandHandlers;
 
-	static CConsoleManager** CConsoleInstance = nullptr;
-	static CConsole_Get CConsoleGet = nullptr;
+	bool __stdcall RegisterCommandHandler(CommandHandler_t);
+	bool __stdcall UnregisterCommandHandler(CommandHandler_t);
+	bool __stdcall FireCommandHandlerCallbacks(char* command);
 
-	void __stdcall Add(CConsoleCmd* cmd);
-	void __stdcall Mask(CConsoleMask* cmd, const char* name, void* value, unsigned int mask, bool isSave);
-	CConsoleManager** __stdcall Get();
+
+	// Function Pointer
+	extern CConsole_Get soCConsole_Get;
+	extern CConsole_Print soCConsole_Print;
+	extern CConsole_HandleCommand soCConsole_HandleCommand;
+
+	// Data & Instance Pointers
+	extern char soCConsole_TextBuffer[1024];
+	extern CConsoleManager** soCConsole_Instance;
+
+	// State
+	extern bool Initialized;
+
+	// Hook Functions
+	int __fastcall hkCConsole_Print(const char* textBuffer);
+	void __fastcall hkCConsole_HandleCommand(char* command);
+
+	// Wrapper Functions
+	void __stdcall Show();
+	void __stdcall Execute(const char* command);
+	void __stdcall ExecuteDeferred(const char* command);
+	CConsoleManager** GetInstance();
+	char* __stdcall GetTextBuffer();
+
 	void __stdcall Initialize();
 }
 

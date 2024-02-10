@@ -242,6 +242,15 @@ VARIANT TunnelDweller::FrameworkLoader::LaunchAssembly(_AssemblyPtr pAssembly)
 
         "[ModuleManager]",
         "ReloadDomInternal:" + std::to_string((intptr_t)&ReloadDomInternal),
+
+        "[CConsole]",
+        "RegisterCommandHandler:" + std::to_string((intptr_t)&TunnelDweller::Metro::Internals::CConsole::RegisterCommandHandler),
+        "UnregisterCommandHandler:" + std::to_string((intptr_t)&TunnelDweller::Metro::Internals::CConsole::UnregisterCommandHandler),
+        "Show:" + std::to_string((intptr_t)&TunnelDweller::Metro::Internals::CConsole::Show),
+        "Execute:" + std::to_string((intptr_t)&TunnelDweller::Metro::Internals::CConsole::Execute),
+        "ExecuteDeferred:" + std::to_string((intptr_t)&TunnelDweller::Metro::Internals::CConsole::ExecuteDeferred),
+        "GetInstance:" + std::to_string((intptr_t)&TunnelDweller::Metro::Internals::CConsole::GetInstance),
+        "GetTextBuffer:" + std::to_string((intptr_t)&TunnelDweller::Metro::Internals::CConsole::GetTextBuffer),
     };
 
     SAFEARRAY* args = LaunchArgs(argvalues);

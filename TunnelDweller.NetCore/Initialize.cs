@@ -38,11 +38,13 @@ namespace TunnelDweller.NetCore
             typeof(InputManager).PopulateDefinitions(args, "[CallbackInput]");
             typeof(MH).PopulateDefinitions(args, "[Minhook]");
             typeof(ModuleManager).PopulateDefinitions(args, "[ModuleManager]");
+            typeof(CConsole).PopulateDefinitions(args, "[CConsole]");
             Update.Initialize();
             Renderer.Initialize();
             InputManager.Initialize();
             Window.Initialize();
             ModuleManager.Initialize(); // requires polishing, but works.
+            CConsole.Initialize();
 
             Popup info = new Popup("Tunnel Dweller###notice");
             info.Controls.Add(new Label($"Welcome to Tunnel Dweller - a Speedrunning Toolkit and much more for the metro games.\r\n\r\nCurrently Supported are the following games: \r\n\r\n"));
