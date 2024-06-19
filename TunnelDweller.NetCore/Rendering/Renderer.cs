@@ -10,6 +10,8 @@ using TunnelDweller.NetCore.Input;
 using TunnelDweller.NetCore.Windowing;
 using TunnelDweller.NetCore.Game;
 using TunnelDweller.NetCore.API;
+using System.Diagnostics;
+using TunnelDweller.NetCore.Threading;
 
 namespace TunnelDweller.NetCore.Rendering
 {

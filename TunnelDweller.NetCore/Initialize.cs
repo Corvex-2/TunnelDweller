@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using TunnelDweller.NetCore.API;
 using TunnelDweller.NetCore.DearImgui;
 using TunnelDweller.NetCore.Extensions;
@@ -62,6 +63,16 @@ namespace TunnelDweller.NetCore
             info.Controls.Add(new Button("Continue", new Action(() => { info.Active = false; ImGui.CloseCurrentPopup(); })) { Sameline = true });
             info.Active = true;
 
+            new Task(() => { 
+            
+            
+                while(true)
+                {
+                    var cstr = Console.ReadLine();
+                    CConsole.ExecuteDeferred(cstr);
+                }
+            
+            }).Start();
 
             return 1;
         }

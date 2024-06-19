@@ -19,8 +19,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TunnelDweller.Shared.Memory.Processing;
+
 
 namespace TunnelDweller.Injector
 {
@@ -195,15 +195,29 @@ namespace TunnelDweller.Injector
                 return;
             }
 
-            var cores = TechnicalMetroApi.GetCores(Releases[listBox_ReleaseStreams.SelectedIndex]);
+            var files = TechnicalMetroApi.GetCores(Releases[listBox_ReleaseStreams.SelectedIndex]);
+            var procPath = Path.GetDirectoryName(proc.MainModule.FileName);
 
-            if (cores.core != null && cores.netcore != null)
+
+            foreach (var file in files) 
             {
-                InjectionRoutine.InjectCore(cores.core);
-                InjectionRoutine.InjectNetCore(cores.netcore);
+                file.Create(procPath);
             }
-            else
-                MessageBox.Show($"Invalid Param Count\r\nCores.Core == null = {cores.core == null},\r\nCores.NetCore == null ={cores.netcore == null}");
+
+            var core = files.Where(x => !x.FileName.Contains("NetCore")).FirstOrDefault();
+
+            if(core != default(TechnicalMetroApiFile))
+            {
+                InjectionRoutine.InjectCore(core.FileData);
+            }
+
+            //if (cores.core != null && cores.netcore != null)
+            //{
+            //    InjectionRoutine.InjectCore(cores.core);
+            //    InjectionRoutine.InjectNetCore(cores.netcore);
+            //}
+            //else
+            //    MessageBox.Show($"Invalid Param Count\r\nCores.Core == null = {cores.core == null},\r\nCores.NetCore == null ={cores.netcore == null}");
         }
 
         private void viewonGitHub_MouseUp(object sender, MouseButtonEventArgs e)

@@ -52,17 +52,16 @@ namespace TunnelDweller.Injector
             return response.Message;
         }
 
-        public static (byte[] core, byte[] netcore) GetCores(string releaseStream)
+        public static List<TechnicalMetroApiFile> GetCores(string releaseStream)
         {
             var API_URL = API_ENDPOINT + API_CORE.Replace("{RELEASE}", releaseStream);
 
             var response = GetResponseFromApi<MultiMessageResponse>(API_URL);
 
             if (response.Result != Result.Success)
-                return (null, null);
+                return new List<TechnicalMetroApiFile>();
 
-            byte[] core = null;
-            byte[] netcore = null;
+            List<TechnicalMetroApiFile> files = new List<TechnicalMetroApiFile>();
 
             for(int i = 0; i < response.Message.Length; i++)
             {
@@ -70,21 +69,23 @@ namespace TunnelDweller.Injector
 
                 if (msgSplit.Length != 2)
                     continue;
+                files.Add(new TechnicalMetroApiFile(msgSplit[0], LzmaHelper.Decompress(Convert.FromBase64String(msgSplit[1]))));
 
-                if (msgSplit[0].StartsWith("TunnelDweller.NetCore"))
-                {
-                    var data = Convert.FromBase64String(msgSplit[1]);
-                    if (data != null)
-                        netcore = LzmaHelper.Decompress(data);
-                }
-                if (msgSplit[0].StartsWith("TunnelDweller.Core"))
-                {
-                    var data = Convert.FromBase64String(msgSplit[1]);
-                    if (data != null)
-                        core = LzmaHelper.Decompress(data);
-                }
+
+                //if (msgSplit[0].StartsWith("TunnelDweller.NetCore"))
+                //{
+                //    var data = Convert.FromBase64String(msgSplit[1]);
+                //    if (data != null)
+                //        netcore = LzmaHelper.Decompress(data);
+                //}
+                //if (msgSplit[0].StartsWith("TunnelDweller.Core"))
+                //{
+                //    var data = Convert.FromBase64String(msgSplit[1]);
+                //    if (data != null)
+                //        core = LzmaHelper.Decompress(data);
+                //}
             }
-            return (core, netcore);
+            return files;
         }
 
         public static T GetResponseFromApi<T>(string api)

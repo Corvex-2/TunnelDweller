@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bright\Gamma.cs" />
+    <Compile Include="FOV\FOVMan.cs" />
     <Compile Include="Framerate\FPS.cs" />
     <Compile Include="Framerate\FPSHotkeyView.cs" />
     <Compile Include="Framerate\FPSKeybindsView.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Speed\SpeedHackPatch.cs" />
     <Compile Include="Varm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VarmConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TunnelDweller.NetCore\TunnelDweller.NetCore.csproj">

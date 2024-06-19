@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="4A">
+      <UniqueIdentifier>{18029b9f-3559-43da-ae1b-3813685ad8f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3p">
+      <UniqueIdentifier>{4a76621c-6460-4d0c-8e90-b1aff9d750e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3p\kiero">
+      <UniqueIdentifier>{830f5b26-80b7-4d85-bf94-9958775851b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3p\MinHook">
+      <UniqueIdentifier>{6b76ed40-f354-4cd1-bb79-32a08f780b47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3p\Imgui">
+      <UniqueIdentifier>{f978b1cb-abe0-4456-a0e6-c440d95c718e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{586095f4-6a1c-4f9d-91ec-2bbacacb29cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Rendering">
+      <UniqueIdentifier>{7b630603-aad2-491b-9ddb-4e43dc538d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Memory">
+      <UniqueIdentifier>{64ff7f12-013e-48fd-847b-e92a893fce11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Callback">
+      <UniqueIdentifier>{ce71aeea-168d-47c8-9953-a35acb11c745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\DotNative">
+      <UniqueIdentifier>{26e897d9-0090-4622-a424-11dba088c386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Input">
+      <UniqueIdentifier>{9ef054ae-1c2c-4683-9ed3-75cc541a5671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\DotGui">
+      <UniqueIdentifier>{e6465bec-3af5-4a87-91eb-07f3e801edf4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NetLoader.cpp">
+      <Filter>Core\DotNative</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_dx11.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_win32.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\implot.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\implot_items.cpp">
+      <Filter>3p\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="minhook\src\buffer.c">
+      <Filter>3p\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="minhook\src\hde\hde32.c">
+      <Filter>3p\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="minhook\src\hde\hde64.c">
+      <Filter>3p\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="minhook\src\hook.c">
+      <Filter>3p\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="minhook\src\trampoline.c">
+      <Filter>3p\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="kiero\kiero.cpp">
+      <Filter>3p\kiero</Filter>
+    </ClCompile>
+    <ClCompile Include="callback.cpp">
+      <Filter>Core\Callback</Filter>
+    </ClCompile>
+    <ClCompile Include="memory.cpp">
+      <Filter>Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="inputter.cpp">
+      <Filter>Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="DotGui.cpp">
+      <Filter>Core\DotGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hostfxr.h">
+      <Filter>Core\DotNative</Filter>
+    </ClInclude>
+    <ClInclude Include="nethost.h">
+      <Filter>Core\DotNative</Filter>
+    </ClInclude>
+    <ClInclude Include="NetLoader.h">
+      <Filter>Core\DotNative</Filter>
+    </ClInclude>
+    <ClInclude Include="coreclr_delegates.h">
+      <Filter>Core\DotNative</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_dx11.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_win32.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\implot.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\implot_internal.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>3p\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\src\buffer.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\src\hde\hde32.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\src\hde\hde64.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\src\trampoline.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\include\MinHook.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\src\hde\pstdint.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\src\hde\table32.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="minhook\src\hde\table64.h">
+      <Filter>3p\MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="kiero\kiero.h">
+      <Filter>3p\kiero</Filter>
+    </ClInclude>
+    <ClInclude Include="callback.h">
+      <Filter>Core\Callback</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.h">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="inputter.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DotGui.h">
+      <Filter>Core\DotGui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="minhook\dll_resources\MinHook.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="minhook\dll_resources\MinHook.def">
+      <Filter>3p\MinHook</Filter>
+    </None>
+  </ItemGroup>
+</Project>

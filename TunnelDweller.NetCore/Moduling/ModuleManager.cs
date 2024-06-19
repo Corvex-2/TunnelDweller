@@ -115,6 +115,11 @@ namespace TunnelDweller.NetCore.Moduling
 
         internal static void ForceReload()
         {
+            if(smReloadDomInternal == null)
+            {
+                return;
+            }
+
             new Task(() => { // The actual reload has to be done from a seperate thread, as executing it from the draw thread for example would cause issues with unregistering the renderer callbacks.
                              // We don't care about the Task Return as the dom gets unloaded and the thread destroyed by the runtime anyway.
 
