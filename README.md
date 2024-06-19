@@ -7,9 +7,19 @@ Currently Supported are the following games:
 **Metro 2033: Redux**
 **Metro Last Light: Redux**
 
-#**NONE OF THESE FEATURES ARE CURRENTLY ALLOWED TO BE USED IN SPEEDRUN SUBMISSIONS!**
+**NONE OF THESE FEATURES ARE CURRENTLY ALLOWED TO BE USED IN SPEEDRUN SUBMISSIONS!**
 
 [video](https://www.youtube.com/watch?v=zFGsGG-Mvx0)
+
+# Usage
+
+1. Downlaod the Updater down below. Run the Updater, it should create a file called "TunnelDweller.Injector.exe"
+2. Run the Injector
+3. Select your release stream, we currently suggest using the Staging release stream, as the other ones contain issues related to module loading.
+4. Start your game (2033 or Last Light Redux)
+5. Hit the "Inject" Button. A command line Window should now appear and give you some random text.
+6. Switch back to the game and hit the "DEL / DELETE" Button on your Keyboard to open the menu!
+7. Select which Modules you want to use, they'll automatically be downloaded and executed. You can modify the settings of most modules on they seperate tab in the menu!
 
 ## Features
 
