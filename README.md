@@ -12,6 +12,10 @@ Currently Supported are the following games:
 
 [video](https://www.youtube.com/watch?v=zFGsGG-Mvx0)
 
+# Requirements
+
+The Staging Environement (TunnelDweller V2) requires the .NET 7 x64 Desktop Runtime. It can be downloaded [here](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+
 # Usage
 
 1. Downlaod the Updater down below. Run the Updater, it should create a file called "TunnelDweller.Injector.exe"
@@ -25,6 +29,7 @@ Currently Supported are the following games:
 # Known Issues / FAQ
 
 **Q**: I ran the Updater, but no file was created.
+
 **A**: If you can access the download page, but the updater isn't creating any files, then it is possible, that you don't have the required .NET-Version installed on your system. In order to use the latest Version of Tunnel Dweller you'll need to have the .NET 7 x64 Desktop Runtime installed on your system. You can download the Runtime [here](https://dotnet.microsoft.com/en-us/download/dotnet/7.0). 
 
 ## Download
