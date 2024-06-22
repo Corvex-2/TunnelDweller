@@ -22,6 +22,14 @@ Currently Supported are the following games:
 6. Switch back to the game and hit the "DEL / DELETE" Button on your Keyboard to open the menu!
 7. Select which Modules you want to use, they'll automatically be downloaded and executed. You can modify the settings of most modules on they seperate tab in the menu!
 
+# Known Issues / FAQ
+
+**Q**: I ran the Updater, but no file was created.
+**A**: If you can access the download page, but the updater isn't creating any files, then it is possible, that you don't have the required .NET-Version installed on your system. In order to use the latest Version of Tunnel Dweller you'll need to have the .NET 7 x64 Desktop Runtime installed on your system. You can download the Runtime [here](https://dotnet.microsoft.com/en-us/download/dotnet/7.0). 
+
+## Download
+You can downloas tunnel dweller here: [download.technicaldifficulties.de](https://download.technicaldifficulties.de/files/metro/core/TunnelDweller.Updater.exe)
+
 ## Features
 
 #**Overlay**
@@ -60,6 +68,3 @@ Your rotation is stored as well!
 ### Var Mod (Variable Modifier)
 
 Allows you to modify and change certain in game variables like the field of view, speed, target fps and gamma value.
-
-## Download
-You can downloas tunnel dweller here: [download.technicaldifficulties.de](https://download.technicaldifficulties.de/files/metro/core/TunnelDweller.Updater.exe)
